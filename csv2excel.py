@@ -1,0 +1,78 @@
+import sys
+import pandas as pd
+from glob import glob
+from optparse import Option, OptionParser
+from os.path import join, relpath
+
+class Csv2Excel(object):
+    def replace(self, inputfolder, outputfile, group):
+        writer = pd.ExcelWriter(outputfile)
+        files = [relpath(x, inputfolder) for x in glob(join(inputfolder, '*'))]
+
+        for i, f in enumerate(files):
+            dfcsv = pd.read_csv(inputfolder+'/'+f, header=None)
+            dfcsv_r = dfcsv.T.dropna()
+
+            d1 = dfcsv_r.ix[:1, :1]
+            d2 = dfcsv_r.ix[:1, 5:]
+            dm = pd.concat([d1, d2], axis=1)
+
+            dm.insert(1, '{0}'.format(group), '')
+
+            dm.columns = dm.as_matrix()[0]
+
+            dm.ix[:,0] = dm.ix[1,0]
+            dm.ix[0,0] = 'ID'
+            dm.ix[0,1] = group
+
+            if i == 0:
+                header = dm.head(1)
+                header.to_excel(writer, index=False, header=False)
+            
+            result = dm.ix[1:, :]
+            result.to_excel(writer, index=False, header=False, startrow=i+1)
+
+        writer.save()
+        
+    def test(self, test):
+        print(test)
+
+    def run_method(self, method_name, options):
+        if method_name == "replace":
+            self.replace(inputfolder=options.inputfolder,
+                         outputfile=options.outputfile,
+                         group=options.group)
+        elif method_name == "test":
+            self.test("test")
+        else:
+            print("{0} - Not found method".format(method_name))
+
+class MultipleOption(Option):
+    ACTIONS = Option.ACTIONS + ("extend",)
+    STORE_ACTIONS = Option.STORE_ACTIONS + ("extend",)
+    TYPED_ACTIONS = Option.TYPED_ACTIONS + ("extend",)
+    ALWAYS_TYPED_ACTIONS = Option.ALWAYS_TYPED_ACTIONS + ("extend",)
+
+    def take_action(self, action, dest, opt, value, values, parser):
+        if action == "extend":
+            values.ensure_value(dest, []).append(value)
+        else:
+            Option.take_action(self, action, dest, opt, value, values, parser)
+
+def main():
+    parser = OptionParser(usage="usage: $ python csv2excel.py <method_name> [options]", option_class=MultipleOption)
+    parser.add_option("-i", "--inputfolder", default="input", help="input folder")
+    parser.add_option("-o", "--outputfile", default="output/sample.xlsx", help="output file")
+    parser.add_option("-g", "--group", default="OUT", help="group column")
+
+    (options, method_name) = parser.parse_args()
+
+    if len(method_name) != 1:
+        parser.print_help()
+        sys.exit()
+
+    ce = Csv2Excel()
+    ce.run_method(method_name[0], options)
+
+if __name__ == "__main__":
+    main()
