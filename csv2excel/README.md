@@ -11,7 +11,7 @@ Please see [aicluster](https://github.com/takaho/aicluster) of takaho.
 python csv2excel.py <method_name> [options]
 ```
 
-## Options
+### Options
 ```
   -h, --help            show this help message and exit
   -i INPUTDIR, --inputdir=INPUTDIR
