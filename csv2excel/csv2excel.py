@@ -1,12 +1,21 @@
 import sys
 import pandas as pd
+from datetime import datetime
 from glob import glob
 from optparse import Option, OptionParser
 from os.path import join, relpath
 
 class Csv2Excel(object):
-    def replace(self, inputdir, outputdir, group):
-        writer = pd.ExcelWriter(join(outputdir, "data.xlsx"))
+    def replace(self, inputdir, outputdir, group, timestamp):
+
+        ts = ""
+        if timestamp:
+            dt = datetime.now().strftime("%Y%m%d%H%M%S")
+            ts = "_" + dt
+
+        outputfile = "data{0}.xlsx".format(ts)
+
+        writer = pd.ExcelWriter(join(outputdir, outputfile))
         files = [relpath(x, inputdir) for x in glob(join(inputdir, '*'))]
 
         for i, f in enumerate(files):
@@ -33,7 +42,7 @@ class Csv2Excel(object):
             result.to_excel(writer, index=False, header=False, startrow=i+1)
 
         writer.save()
-        
+
     def test(self, test):
         print(test)
 
@@ -41,7 +50,8 @@ class Csv2Excel(object):
         if method_name == "replace":
             self.replace(inputdir=options.inputdir,
                          outputdir=options.outputdir,
-                         group=options.group)
+                         group=options.group,
+                         timestamp=options.timestamp)
         elif method_name == "test":
             self.test("test")
         else:
@@ -64,6 +74,7 @@ def main():
     parser.add_option("-i", "--inputdir", default="input", help="input directory")
     parser.add_option("-o", "--outputdir", default="output", help="output directory")
     parser.add_option("-g", "--group", default="OUT", help="group column")
+    parser.add_option("-t", "--timestamp", default=False, help="add timestamp to the output file name")
 
     (options, method_name) = parser.parse_args()
 

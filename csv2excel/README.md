@@ -13,14 +13,15 @@ python csv2excel.py <method_name> [options]
 
 ## Options
 ```
-Options:
   -h, --help            show this help message and exit
-  -i INPUTFOLDER, --inputfolder=INPUTFOLDER
-                        input folder
-  -o OUTPUTFILE, --outputfile=OUTPUTFILE
-                        output file
+  -i INPUTDIR, --inputdir=INPUTDIR
+                        input directory
+  -o OUTPUTDIR, --outputdir=OUTPUTDIR
+                        output directory
   -g GROUP, --group=GROUP
                         group column
+  -t TIMESTAMP, --timestamp=TIMESTAMP
+                        add timestamp to the output file name
 ```
 
 ## Running test
