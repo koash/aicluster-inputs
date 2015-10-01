@@ -5,12 +5,12 @@ from optparse import Option, OptionParser
 from os.path import join, relpath
 
 class Csv2Excel(object):
-    def replace(self, inputfolder, outputfile, group):
-        writer = pd.ExcelWriter(outputfile)
-        files = [relpath(x, inputfolder) for x in glob(join(inputfolder, '*'))]
+    def replace(self, inputdir, outputdir, group):
+        writer = pd.ExcelWriter(join(outputdir, "data.xlsx"))
+        files = [relpath(x, inputdir) for x in glob(join(inputdir, '*'))]
 
         for i, f in enumerate(files):
-            dfcsv = pd.read_csv(inputfolder+'/'+f, header=None)
+            dfcsv = pd.read_csv(join(inputdir, f), header=None)
             dfcsv_r = dfcsv.T.dropna()
 
             d1 = dfcsv_r.ix[:1, :1]
@@ -39,8 +39,8 @@ class Csv2Excel(object):
 
     def run_method(self, method_name, options):
         if method_name == "replace":
-            self.replace(inputfolder=options.inputfolder,
-                         outputfile=options.outputfile,
+            self.replace(inputdir=options.inputdir,
+                         outputdir=options.outputdir,
                          group=options.group)
         elif method_name == "test":
             self.test("test")
@@ -61,8 +61,8 @@ class MultipleOption(Option):
 
 def main():
     parser = OptionParser(usage="usage: $ python csv2excel.py <method_name> [options]", option_class=MultipleOption)
-    parser.add_option("-i", "--inputfolder", default="input", help="input folder")
-    parser.add_option("-o", "--outputfile", default="output/sample.xlsx", help="output file")
+    parser.add_option("-i", "--inputdir", default="input", help="input directory")
+    parser.add_option("-o", "--outputdir", default="output", help="output directory")
     parser.add_option("-g", "--group", default="OUT", help="group column")
 
     (options, method_name) = parser.parse_args()
