@@ -1,7 +1,7 @@
 # aicluster
 This is input file maker for practical examination of AI. 
 
-See [aicluster](https://github.com/takaho/aicluster) of takaho.
+Please See [aicluster](https://github.com/takaho/aicluster) of takaho.
 
 ## Dependencies
 - [pandas](http://pandas.pydata.org/)
