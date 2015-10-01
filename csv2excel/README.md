@@ -3,7 +3,7 @@ This is input file maker for practical examination of AI.
 
 Please see [aicluster](https://github.com/takaho/aicluster) of takaho.
 
-## Dependencies
+## Dependency
 - [pandas](http://pandas.pydata.org/)
 
 ## Usage
