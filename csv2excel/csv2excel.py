@@ -43,17 +43,12 @@ class Csv2Excel(object):
 
         writer.save()
 
-    def test(self, test):
-        print(test)
-
     def run_method(self, method_name, options):
         if method_name == "replace":
             self.replace(inputdir=options.inputdir,
                          outputdir=options.outputdir,
                          group=options.group,
                          timestamp=options.timestamp)
-        elif method_name == "test":
-            self.test("test")
         else:
             print("{0} - Not found method".format(method_name))
 
