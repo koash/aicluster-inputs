@@ -20,7 +20,7 @@ class Csv2Excel(object):
 
         for i, f in enumerate(files):
             dfcsv = pd.read_csv(join(inputdir, f), header=None)
-            dfcsv_r = dfcsv.T.dropna()
+            dfcsv_r = dfcsv.T.dropna(subset=[1])
 
             d1 = dfcsv_r.ix[:1, :1]
             d2 = dfcsv_r.ix[:1, 5:]
