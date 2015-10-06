@@ -23,7 +23,7 @@ class Csv2Excel(object):
             dfcsv_r = dfcsv.T.dropna(subset=[1])
 
             d1 = dfcsv_r.ix[:1, :1]
-            d2 = dfcsv_r.ix[:1, 5:]
+            d2 = dfcsv_r.ix[:1, 7:]
             dm = pd.concat([d1, d2], axis=1)
 
             dm.insert(1, '{0}'.format(group), '')
