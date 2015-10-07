@@ -22,15 +22,15 @@ class Csv2Excel(object):
             dfcsv = pd.read_csv(join(inputdir, f), encoding=encoding, header=None)
             dfcsv_r = dfcsv.T.dropna(subset=[1])
 
-            d1 = dfcsv_r.ix[:, :1]
-            d2 = dfcsv_r.ix[:, 7:]
+            d1 = dfcsv_r.ix[:, :1]  # ID, Date
+            d2 = dfcsv_r.ix[:, 7:]  # Values
             dm = pd.concat([d1, d2], axis=1)
 
             dm.ix[0,1] = 'Date'
 
             dm.columns = dm.as_matrix()[0]
 
-            dm.ix[:,0] = dfcsv_r.ix[1, 0]
+            dm.ix[:,0] = dfcsv_r.ix[1, 0]   # ID
 
             dm.insert(1, '{0}'.format(group), '')
             dm.ix[0,1] = group
