@@ -22,6 +22,8 @@ python csv2excel.py <method_name> [options]
                         group column
   -t TIMESTAMP, --timestamp=TIMESTAMP
                         add timestamp to the output file name
+  -e ENCODING, --encoding=ENCODING
+                        encoding
 ```
 
 ## Running test
