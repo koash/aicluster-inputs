@@ -22,24 +22,28 @@ class Csv2Excel(object):
             dfcsv = pd.read_csv(join(inputdir, f), header=None)
             dfcsv_r = dfcsv.T.dropna(subset=[1])
 
-            d1 = dfcsv_r.ix[:1, :1]
-            d2 = dfcsv_r.ix[:1, 7:]
+            d1 = dfcsv_r.ix[:, :1]
+            d2 = dfcsv_r.ix[:, 7:]
             dm = pd.concat([d1, d2], axis=1)
 
-            dm.insert(1, '{0}'.format(group), '')
+            dm.ix[0,1] = 'Date'
 
             dm.columns = dm.as_matrix()[0]
 
-            dm.ix[:,0] = dm.ix[1,0]
-            dm.ix[0,0] = 'ID'
+            dm.ix[:,0] = dfcsv_r.ix[1, 0]
+
+            dm.insert(1, '{0}'.format(group), '')
             dm.ix[0,1] = group
 
+            dd = dm.ix[1:, :]
+            latest = dd[dd['Date'] == dd['Date'].max()]
+
             if i == 0:
+                dm.ix[0,0] = 'ID'
                 header = dm.head(1)
                 header.to_excel(writer, index=False, header=False)
-            
-            result = dm.ix[1:, :]
-            result.to_excel(writer, index=False, header=False, startrow=i+1)
+
+            latest.to_excel(writer, index=False, header=False, startrow=i+1)
 
         writer.save()
 
