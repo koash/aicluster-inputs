@@ -6,7 +6,7 @@ from optparse import Option, OptionParser
 from os.path import join, relpath
 
 class Csv2Excel(object):
-    def replace(self, inputdir, outputdir, group, timestamp):
+    def replace(self, inputdir, outputdir, group, timestamp, encoding):
 
         ts = ""
         if timestamp:
@@ -19,7 +19,7 @@ class Csv2Excel(object):
         files = [relpath(x, inputdir) for x in glob(join(inputdir, '*'))]
 
         for i, f in enumerate(files):
-            dfcsv = pd.read_csv(join(inputdir, f), header=None)
+            dfcsv = pd.read_csv(join(inputdir, f), encoding=encoding, header=None)
             dfcsv_r = dfcsv.T.dropna(subset=[1])
 
             d1 = dfcsv_r.ix[:, :1]
@@ -52,7 +52,8 @@ class Csv2Excel(object):
             self.replace(inputdir=options.inputdir,
                          outputdir=options.outputdir,
                          group=options.group,
-                         timestamp=options.timestamp)
+                         timestamp=options.timestamp,
+                         encoding=options.encoding)
         else:
             print("{0} - Not found method".format(method_name))
 
@@ -74,6 +75,7 @@ def main():
     parser.add_option("-o", "--outputdir", default="output", help="output directory")
     parser.add_option("-g", "--group", default="OUT", help="group column")
     parser.add_option("-t", "--timestamp", default=False, help="add timestamp to the output file name")
+    parser.add_option("-e", "--encoding", default="latin_1", help="encoding")
 
     (options, method_name) = parser.parse_args()
 
