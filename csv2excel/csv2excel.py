@@ -37,6 +37,7 @@ class Csv2Excel(object):
 
             dd = dm.ix[1:, :]
             latest = dd[dd['Date'] == dd['Date'].max()]
+            latest = latest.mask(latest.isin([".", "********"])).fillna(-1)
 
             if i == 0:
                 dm.ix[0,0] = 'ID'
