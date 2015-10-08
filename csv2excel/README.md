@@ -5,6 +5,17 @@ Please see [aicluster](https://github.com/takaho/aicluster) of takaho.
 
 ## Dependency
 - [pandas](http://pandas.pydata.org/)
+- [openpyxl](http://packages.python.org/openpyxl/)
+
+e.g.
+```
+pip install openpyxl==1.8.6
+```
+
+[Because](http://pandas.pydata.org/pandas-docs/stable/install.html#optional-dependencies
+):
+> penpyxl version 1.6.1 or higher, but lower than 2.0.0
+
 
 ## Usage
 ```
