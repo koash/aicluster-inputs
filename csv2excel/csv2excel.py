@@ -26,11 +26,10 @@ class Csv2Excel(object):
             d2 = dfcsv_r.ix[:, 7:]  # Values
             dm = pd.concat([d1, d2], axis=1)
 
+            dm.ix[:,0] = dfcsv_r.ix[1, 0]   # ID
             dm.ix[0,1] = 'Date'
 
             dm.columns = dm.as_matrix()[0]
-
-            dm.ix[:,0] = dfcsv_r.ix[1, 0]   # ID
 
             dm.insert(1, '{0}'.format(group), '')
             dm.ix[0,1] = group
