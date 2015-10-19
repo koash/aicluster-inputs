@@ -1,5 +1,5 @@
 # Input file maker for aicluster
-This is input file maker for practical examination of AI. 
+aicluster-inputs is input file maker for practical examination of AI. 
 
 Please see [aicluster](https://github.com/takaho/aicluster) of takaho.
 
