@@ -1,0 +1,6 @@
+select:
+  start: 1
+  end: 7
+fillna:
+- "."
+- "********"

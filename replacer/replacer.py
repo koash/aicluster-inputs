@@ -1,12 +1,19 @@
 import sys
 import pandas as pd
+import yaml
 from datetime import datetime
 from glob import glob
 from optparse import Option, OptionParser
 from os.path import join, relpath
 
 class Csv2Excel(object):
-    def replace(self, inputdir, outputdir, group, timestamp, encoding):
+    def import_yaml(self, yamlfile):
+        with open("settings.yaml") as fr:
+            return yaml.load(fr)
+
+    def replace(self, inputdir, outputdir, group, timestamp, encoding, yamlfile):
+
+        y = self.import_yaml(yamlfile)
 
         ts = ""
         if timestamp:
@@ -36,7 +43,7 @@ class Csv2Excel(object):
 
             dd = dm.ix[1:, :]
             latest = dd[dd['Date'] == dd['Date'].max()]
-            latest = latest.mask(latest.isin([".", "********"])).fillna(-1)
+            latest = latest.mask(latest.isin(y["fillna"])).fillna(-1)
 
             if i == 0:
                 dm.ix[0,0] = 'ID'
@@ -53,7 +60,8 @@ class Csv2Excel(object):
                          outputdir=options.outputdir,
                          group=options.group,
                          timestamp=options.timestamp,
-                         encoding=options.encoding)
+                         encoding=options.encoding,
+                         yamlfile=options.yamlfile)
         else:
             print("{0} - Not found method".format(method_name))
 
@@ -76,6 +84,7 @@ def main():
     parser.add_option("-g", "--group", default="OUT", help="group column")
     parser.add_option("-t", "--timestamp", default=False, help="add timestamp to the output file name")
     parser.add_option("-e", "--encoding", default="latin_1", help="encoding")
+    parser.add_option("-y", "--yamlfile", default="settings.yaml", help="input yaml file")
 
     (options, method_name) = parser.parse_args()
 
