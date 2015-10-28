@@ -4,6 +4,7 @@ aicluster-inputs is input file maker for practical examination of AI.
 Please see [aicluster](https://github.com/takaho/aicluster) of takaho.
 
 ## Dependency
+- [PyYAML](https://pypi.python.org/pypi/PyYAML)
 - [pandas](http://pandas.pydata.org/)
 - [openpyxl](http://packages.python.org/openpyxl/)
 
@@ -19,7 +20,7 @@ pip install openpyxl==1.8.6
 
 ## Usage
 ```
-python csv2excel.py <method_name> [options]
+python replacer.py <method_name> [options]
 ```
 
 ### Options
@@ -35,6 +36,8 @@ python csv2excel.py <method_name> [options]
                         add timestamp to the output file name
   -e ENCODING, --encoding=ENCODING
                         encoding
+  -y YAMLFILE, --yamlfile=YAMLFILE
+                        input yaml file
 ```
 
 ## Running test
