@@ -1,3 +1,8 @@
+inputdir: intput
+outputdir: output
+group: OUT
+timestamp: True
+encoding: latin_1
 select:
   start: 1
   end: 7
