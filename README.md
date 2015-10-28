@@ -1,12 +1,12 @@
 # Input file maker for aicluster
 aicluster-inputs is input file maker for practical examination of AI. 
 
-Please see [aicluster](https://github.com/takaho/aicluster) of takaho.
+Please see [aicluster](https://github.com/takaho/aicluster) by [Takaho A. Endo](https://github.com/takaho).
 
 ## Dependency
-- [PyYAML](https://pypi.python.org/pypi/PyYAML)
-- [pandas](http://pandas.pydata.org/)
-- [openpyxl](http://packages.python.org/openpyxl/)
+- [PyYAML](https://pypi.python.org/pypi/PyYAML) 3.11
+- [pandas](http://pandas.pydata.org/) 0.16.2
+- [openpyxl](http://packages.python.org/openpyxl/) 1.8.6
 
 e.g.
 ```
