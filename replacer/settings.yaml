@@ -1,6 +1,7 @@
 inputdir: intput
 outputdir: output
 group: OUT
+extract: Date
 timestamp: True
 encoding: latin_1
 select:
