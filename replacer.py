@@ -8,7 +8,7 @@ from os.path import join, relpath
 
 class Replacer(object):
     def import_yaml(self, yamlfile):
-        with open("settings.yaml") as fr:
+        with open("settings.yml") as fr:
             return yaml.load(fr)
 
     def add_timestamp(self, timestamp, iyaml):
