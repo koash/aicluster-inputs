@@ -6,7 +6,7 @@ from glob import glob
 from optparse import Option, OptionParser
 from os.path import join, relpath
 
-class Csv2Excel(object):
+class Replacer(object):
     def import_yaml(self, yamlfile):
         with open("settings.yaml") as fr:
             return yaml.load(fr)
@@ -92,8 +92,8 @@ def main():
         parser.print_help()
         sys.exit()
 
-    ce = Csv2Excel()
-    ce.run_method(method_name[0], options)
+    r = Replacer()
+    r.run_method(method_name[0], options)
 
 if __name__ == "__main__":
     main()
