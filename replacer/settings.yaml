@@ -1,10 +1,12 @@
 inputdir: intput
 outputdir: output
 group: OUT
-extract: Date
+filter:
+  set: Date
+  aggregate: Max
 timestamp: True
 encoding: latin_1
-select:
+extract:
   start: 1
   end: 7
 fillna:
