@@ -11,15 +11,17 @@ class Replacer(object):
         with open("settings.yaml") as fr:
             return yaml.load(fr)
 
-    def replace(self, inputdir, outputdir, group, timestamp, encoding, yamlfile):
-
-        y = self.import_yaml(yamlfile)
-
+    def add_timestamp(self, timestamp, iyaml):
         ts = ""
-        if timestamp:
+        if timestamp or iyaml["timestamp"]:
             dt = datetime.now().strftime("%Y%m%d%H%M%S")
             ts = "_" + dt
+        return ts
 
+    def replace(self, inputdir, outputdir, group, timestamp, encoding, yamlfile):
+        iyaml = self.import_yaml(yamlfile)
+
+        ts = self.add_timestamp(timestamp, iyaml)
         outputfile = "data{0}.xlsx".format(ts)
 
         writer = pd.ExcelWriter(join(outputdir, outputfile))
@@ -43,7 +45,7 @@ class Replacer(object):
 
             dd = dm.ix[1:, :]
             latest = dd[dd['Date'] == dd['Date'].max()]
-            latest = latest.mask(latest.isin(y["fillna"])).fillna(-1)
+            latest = latest.mask(latest.isin(iyaml["fillna"])).fillna(-1)
 
             if i == 0:
                 dm.ix[0,0] = 'ID'
