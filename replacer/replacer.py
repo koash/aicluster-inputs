@@ -86,7 +86,7 @@ def main():
     parser.add_option("-g", "--group", default="OUT", help="group column")
     parser.add_option("-t", "--timestamp", default=False, help="add timestamp to the output file name")
     parser.add_option("-e", "--encoding", default="latin_1", help="encoding")
-    parser.add_option("-y", "--yamlfile", default="settings.yaml", help="input yaml file")
+    parser.add_option("-y", "--yamlfile", default="settings.yml", help="input yaml file")
 
     (options, method_name) = parser.parse_args()
 
